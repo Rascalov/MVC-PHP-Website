@@ -11,6 +11,7 @@ require 'libs/View.php';
 require 'libs/PHPMailer.php';
 require 'libs/SMTP.php';
 require 'libs/Exception.php';
+require 'libs/Mail.php';
 
 require 'config/database.php';
 require 'config/paths.php';
