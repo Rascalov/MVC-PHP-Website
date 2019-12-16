@@ -12,40 +12,7 @@ class Login_Model extends Model
         $query = "SELECT * FROM users WHERE Username = ?";
         $parameters = array($username);
         $result = parent::ExecuteSelectQuery($query, 's', $parameters);
-
-        if(!$result)
-        {
-            // Something went wrong, connection error or the end of the world
-            header('location:' . URL . 'login?error=failure');   
-            return; 
-        }   
-
-        if($result->num_rows == 1)
-        {  
-            $row = $result->fetch_assoc();
-            if (password_verify($password, $row['Password']))
-            {
-                Session::set('UserID', $row['UserID']);
-                Session::set('Username', $row['Username']);
-                Session::set('Mail', $row['Mail']);
-                Session::set('Role', $row['Role']);
-                
-                //succes, back to home you go, maybe in php2 see if you can have him return on the page he logged in from
-                header('location: ' . URL);
-            }
-            else
-            {
-                // incorrect credentials
-                header('location:' . URL . 'login?error=norows');
-                exit;
-            }
-        }
-        else
-        { 
-            // incorrect credentials
-            header('location:' . URL . 'login?error=norows');
-            exit;
-        }
+        return $result;
     }
     public function setRecoveryToken(string $email, $key) // $key must be able to take a null, so no type hinting
     {
